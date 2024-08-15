@@ -9,7 +9,7 @@ async def handle_client(websocket, path):
         try:
                 async for message in websocket:
                         print(f"Receive message : {message}")
-                        await asyncio.wait([client.send(message) for client in connected_clients])
+                        await asyncio.gather(*[client.send(message) for client in connected_clients])
         finally:
                 connected_clients.remove(websocket)
 
